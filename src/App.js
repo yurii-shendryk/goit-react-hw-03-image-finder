@@ -81,7 +81,7 @@ const App = () => {
               <img
                 className="modal__image"
                 src={currentImage}
-                alt="image"
+                alt="preview"
               ></img>
             </Modal>
           )}
