@@ -6,7 +6,12 @@ const Button = ({ onClick }) => (
     Load more
   </button>
 );
+Button.defaultProps = {
+  onClick: () => null,
+};
 
-Button.propTypes = {};
+Button.propTypes = {
+  onClick: PropTypes.func,
+};
 
 export default Button;

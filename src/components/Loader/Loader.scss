@@ -1,3 +1,4 @@
+@import '../../styles/variables';
 .spinner {
   margin: 50px 0;
 }
@@ -84,62 +85,62 @@
 .sk-circle .sk-circle1:before {
   -webkit-animation-delay: -1.2s;
   animation-delay: -1.2s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle2:before {
   -webkit-animation-delay: -1.1s;
   animation-delay: -1.1s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 .sk-circle .sk-circle3:before {
   -webkit-animation-delay: -1s;
   animation-delay: -1s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle4:before {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 .sk-circle .sk-circle5:before {
   -webkit-animation-delay: -0.8s;
   animation-delay: -0.8s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle6:before {
   -webkit-animation-delay: -0.7s;
   animation-delay: -0.7s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 .sk-circle .sk-circle7:before {
   -webkit-animation-delay: -0.6s;
   animation-delay: -0.6s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle8:before {
   -webkit-animation-delay: -0.5s;
   animation-delay: -0.5s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 .sk-circle .sk-circle9:before {
   -webkit-animation-delay: -0.4s;
   animation-delay: -0.4s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle10:before {
   -webkit-animation-delay: -0.3s;
   animation-delay: -0.3s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 .sk-circle .sk-circle11:before {
   -webkit-animation-delay: -0.2s;
   animation-delay: -0.2s;
-  background-color: #ea4335;
+  background-color: $orange;
 }
 .sk-circle .sk-circle12:before {
   -webkit-animation-delay: -0.1s;
   animation-delay: -0.1s;
-  background-color: #2196f3;
+  background-color: $blue;
 }
 
 @-webkit-keyframes sk-circleBounceDelay {

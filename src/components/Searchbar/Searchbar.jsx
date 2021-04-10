@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import SubmitIconButton from '../SubmitIconButton';
+import { ReactComponent as SearchIcon } from '../../icons/seacrh.svg';
 import './Searchbar.scss';
 
 const Searchbar = ({ onSubmit }) => {
@@ -12,16 +14,19 @@ const Searchbar = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     onSubmit(query);
   };
 
   return (
     <header className="Searchbar">
       <form className="SearchForm" onSubmit={handleSubmit}>
-        <button type="submit" className="SearchForm-button">
+        <SubmitIconButton aria-label="close" className="SubmitIconButton">
+          <SearchIcon width="17" height="17" />
           <span className="SearchForm-button-label">Search</span>
-        </button>
+        </SubmitIconButton>
+        {/* <button type="submit" className="SearchForm-button">
+
+        </button> */}
 
         <input
           className="SearchForm-input"
@@ -38,6 +43,12 @@ const Searchbar = ({ onSubmit }) => {
   );
 };
 
-Searchbar.propTypes = {};
+Searchbar.defaultProps = {
+  onSubmit: () => null,
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default Searchbar;

@@ -3,7 +3,12 @@ import imagesApi from './services/pixabay-api';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
+import IconButton from './components/IconButton';
 import Loader from './components/Loader';
+import Modal from './components/Modal';
+import Error from './components/Error';
+import { ReactComponent as CloseIcon } from './icons/close.svg';
+import './App.scss';
 
 const App = () => {
   const [images, setImages] = useState([]);
@@ -11,6 +16,13 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    if (searchQuery) {
+      fetchImages();
+    }
+  }, [searchQuery]);
 
   const fetchImages = () => {
     const options = { searchQuery, currentPage };
@@ -26,33 +38,55 @@ const App = () => {
           behavior: 'smooth',
         });
       })
+      .catch(error => setError(error))
       .finally(() => setIsLoading(false));
   };
 
-  useEffect(() => {
-    if (searchQuery !== '') {
-      fetchImages();
-    }
-  }, [searchQuery]);
-
   const onChangeQuery = query => {
     setSearchQuery(query);
-    setCurrentPage(1);
-    setImages([]);
+    if (query !== searchQuery) {
+      setCurrentPage(1);
+      setImages([]);
+    }
+    setError(null);
   };
 
   const toggleModal = () => {
     setShowModal(prevState => !prevState);
   };
 
+  const addModalImage = ({ target }) => {
+    const { src } = target.dataset;
+    setCurrentImage(src);
+    toggleModal();
+  };
+
   const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
 
   return (
     <div>
-      <Searchbar onSubmit={onChangeQuery} />
-      <ImageGallery images={images} />
-      {isLoading && <Loader />}
-      {shouldRenderLoadMoreBtn && <Button onClick={fetchImages} />}
+      {error ? (
+        <Error />
+      ) : (
+        <>
+          <Searchbar onSubmit={onChangeQuery} />
+          <ImageGallery images={images} onToggleModal={addModalImage} />
+          {isLoading && <Loader />}
+          {shouldRenderLoadMoreBtn && <Button onClick={fetchImages} />}
+          {showModal && currentImage && (
+            <Modal onClose={toggleModal}>
+              <IconButton onClick={toggleModal} aria-label="close">
+                <CloseIcon width="27" height="27" />
+              </IconButton>
+              <img
+                className="modal__image"
+                src={currentImage}
+                alt="image"
+              ></img>
+            </Modal>
+          )}
+        </>
+      )}
     </div>
   );
 };
