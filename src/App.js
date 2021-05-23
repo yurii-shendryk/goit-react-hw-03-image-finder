@@ -18,28 +18,31 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
   const [error, setError] = useState(null);
-  useEffect(() => {
-    if (searchQuery) {
-      fetchImages();
-    }
-  }, [searchQuery]);
 
-  const fetchImages = () => {
-    const options = { searchQuery, currentPage };
-    setIsLoading(true);
-    imagesApi
-      .fetchImages(options)
-      .then(hits => {
-        console.log(hits);
-        setImages(prevState => [...prevState, ...hits]);
-        setCurrentPage(prevState => prevState + 1);
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: 'smooth',
-        });
-      })
-      .catch(error => setError(error))
-      .finally(() => setIsLoading(false));
+  useEffect(() => {
+    if (!searchQuery) {
+      return;
+    }
+    const fetchImages = () => {
+      const options = { searchQuery, currentPage };
+      setIsLoading(true);
+      imagesApi
+        .fetchImages(options)
+        .then(hits => {
+          setImages(prevState => [...prevState, ...hits]);
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth',
+          });
+        })
+        .catch(error => setError(error))
+        .finally(() => setIsLoading(false));
+    };
+    fetchImages();
+  }, [searchQuery, currentPage]);
+
+  const updatePage = () => {
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   const onChangeQuery = query => {
@@ -72,7 +75,7 @@ const App = () => {
           <Searchbar onSubmit={onChangeQuery} />
           <ImageGallery images={images} onToggleModal={addModalImage} />
           {isLoading && <Loader />}
-          {shouldRenderLoadMoreBtn && <Button onClick={fetchImages} />}
+          {shouldRenderLoadMoreBtn && <Button onClick={updatePage} />}
           {showModal && currentImage && (
             <Modal onClose={toggleModal}>
               <IconButton onClick={toggleModal} aria-label="close">

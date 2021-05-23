@@ -10,5 +10,5 @@ const fetchImages = ({ searchQuery = '', currentPage = 1, pageSize = 12 }) => {
     )
     .then(({ data }) => data.hits);
 };
-
+// eslint-disable-next-line
 export default { fetchImages };

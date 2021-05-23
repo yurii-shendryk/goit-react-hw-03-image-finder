@@ -6,25 +6,22 @@ import './Modal.scss';
 const modalRoot = document.getElementById('modal-root');
 
 const Modal = ({ onClose, children }) => {
-  const handleKeyDown = event => {
-    if (event.code === 'Escape') {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    const handleKeyDown = event => {
+      if (event.code === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const handleBackdropClick = ({ target, currentTarget }) => {
     if (target === currentTarget) {
       onClose();
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-  }, []);
-
-  useEffect(() => {
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  });
 
   return createPortal(
     <div className="Overlay" onClick={handleBackdropClick}>
